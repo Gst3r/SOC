@@ -1,0 +1,193 @@
+- name: Install main packages
+  hosts: myhosts
+  become: yes
+  tasks:
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+
+- name: Install docker
+  hosts: myhosts
+  become: yes
+  tasks:
+    - name: Installing dependencies
+      apt:
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - python3-pip
+        - virtualenv
+        - python3-setuptools
+        - rsync
+        state: latest
+        update_cache: true
+    - name: Preparing keyrings
+      command:
+        cmd: install -m 0755 -d /etc/apt/keyrings
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Adding repository on apt sources
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Installing docker
+      apt:
+        pkg: 
+        - docker-ce 
+        - docker-ce-cli 
+        - containerd.io 
+        - docker-buildx-plugin 
+        - docker-compose-plugin
+        state: latest
+        update_cache: true
+    - name: Install Docker Module for Python
+      pip:
+        name: 
+        - docker==6.1.3
+        - docker-compose
+
+- name: Deploy SOC architecture
+  hosts: myhosts
+  become: yes
+  tasks:
+    - name: Preparing docker compose environment
+      command:
+        cmd: mkdir /home/adminuser/compose /home/adminuser/compose/elastic /home/adminuser/compose/thehive /home/adminuser/compose/n8n /home/adminuser/compose/wazuh /home/adminuser/compose/wazuh-certgen /home/adminuser/compose/misp /home/adminuser/compose/npm
+    - name: Uploading NPM docker compose
+      copy:
+        src: ./compose/npm.docker-compose.yml
+        dest: /home/adminuser/compose/npm/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Elastic docker compose
+      copy:
+        src: ./compose/elastic.docker-compose.yml
+        dest: /home/adminuser/compose/elastic/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Elastic env file
+      copy:
+        src: ./compose/elastic.env
+        dest: /home/adminuser/compose/elastic/.env
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading TheHive docker compose
+      copy:
+        src: ./compose/thehive.docker-compose.yml
+        dest: /home/adminuser/compose/thehive/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading n8n docker compose
+      copy:
+        src: ./compose/n8n.docker-compose.yml
+        dest: /home/adminuser/compose/n8n/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading n8n env file
+      copy:
+        src: ./compose/n8n.env
+        dest: /home/adminuser/compose/n8n/.env
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh Cert Generator docker compose
+      copy:
+        src: ./compose/wazuh-certgen.docker-compose.yml
+        dest: /home/adminuser/compose/wazuh-certgen/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh docker compose
+      copy:
+        src: ./compose/wazuh.docker-compose.yml
+        dest: /home/adminuser/compose/wazuh/docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh env file
+      copy:
+        src: ./compose/wazuh.env
+        dest: /home/adminuser/compose/wazuh/.env
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh config dir
+      copy:
+        src: ./compose/config/
+        dest: /home/adminuser/compose/wazuh/config/
+        directory_mode:
+    - name: Uploading Elastic env file
+      copy:
+        src: ./compose/misp.env
+        dest: /home/adminuser/compose/misp/.env
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Deploy NPM compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/npm
+        build: yes
+    - name: Preparing environment for elastic deployment
+      become: yes
+      command:
+        cmd: sysctl -w vm.max_map_count=262144
+    - name: Setting environment for elastic deployment
+      become: yes
+      command:
+        cmd: echo 'vm.max_map_count=262144' >> /etc/sysctl.conf
+    - name: Deploy Elastic compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/elastic
+        build: yes
+    - name: Deploy TheHive compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/thehive
+        build: yes
+    - name: Deploy n8n compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/n8n
+        build: yes
+    - name: Deploy Wazuh Cert Gen compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/wazuh-certgen
+        build: yes
+    - name: Deploy Wazuh compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/wazuh
+        build: yes
+
+
+# - name: Configure SOC Architecture
+#   hosts: myhosts
+#   tasks:
+#    - name: Generate key
+#      command:
+#       cmd: 
+#       register: myshell_output
+#    - name: copy the output to a local file
+#      copy:
+#       content: "{{ myshell_output.stdout }}"
+#       dest: ""
+#      delegate_to: localhost
+#    - name: Uploading Elastic docker compose
+#      command:
+#       cmd: echo "test"

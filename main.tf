@@ -22,12 +22,13 @@ resource "azurerm_public_ip" "SOC_pubip" {
   location            = azurerm_resource_group.SOC_resources.location
   resource_group_name = azurerm_resource_group.SOC_resources.name
   allocation_method   = "Dynamic"
+  domain_name_label = "audioprothese"
 }
 
 resource "azurerm_network_interface" "SOC_nic" {
-  name                = "SOC_nic"
-  location            = azurerm_resource_group.SOC_resources.location
-  resource_group_name = azurerm_resource_group.SOC_resources.name
+  name                    = "SOC_nic"
+  location                = azurerm_resource_group.SOC_resources.location
+  resource_group_name     = azurerm_resource_group.SOC_resources.name
 
   ip_configuration {
     name                          = "internal"
@@ -49,7 +50,7 @@ resource "azurerm_linux_virtual_machine" "SOC_vm" {
   location              = azurerm_resource_group.SOC_resources.location
   resource_group_name   = azurerm_resource_group.SOC_resources.name
   network_interface_ids = [azurerm_network_interface.SOC_nic.id]
-  size                  = "Standard_B4ms"
+  size                  = "Standard_E4_v4"
   admin_username        = "adminuser"
   admin_ssh_key {
     username   = "adminuser"
@@ -64,8 +65,8 @@ resource "azurerm_linux_virtual_machine" "SOC_vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 }
