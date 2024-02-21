@@ -60,14 +60,7 @@
   tasks:
     - name: Preparing docker compose environment
       command:
-        cmd: mkdir /home/adminuser/compose /home/adminuser/compose/elastic /home/adminuser/compose/thehive /home/adminuser/compose/n8n /home/adminuser/compose/wazuh /home/adminuser/compose/wazuh-certgen /home/adminuser/compose/misp /home/adminuser/compose/npm
-    - name: Uploading NPM docker compose
-      copy:
-        src: ./compose/npm.docker-compose.yml
-        dest: /home/adminuser/compose/npm/docker-compose.yml
-        owner: adminuser
-        group: adminuser
-        mode: '0755'
+        cmd: mkdir /home/adminuser/compose /home/adminuser/compose/elastic /home/adminuser/compose/thehive /home/adminuser/compose/n8n /home/adminuser/compose/wazuh /home/adminuser/compose/wazuh-certgen /home/adminuser/compose/misp /home/adminuser/compose/fleet-server
     - name: Uploading Elastic docker compose
       copy:
         src: ./compose/elastic.docker-compose.yml
@@ -79,6 +72,20 @@
       copy:
         src: ./compose/elastic.env
         dest: /home/adminuser/compose/elastic/.env
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Fleet Server compose
+      copy:
+        src: ./compose/fleet-server.docker-compose.yml
+        dest: /home/adminuser/compose/fleet-server/fleet-server.docker-compose.yml
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Fleet Server configure script shell
+      copy:
+        src: configure-fleet.sh
+        dest: /home/adminuser/configure-fleet.sh
         owner: adminuser
         group: adminuser
         mode: '0755'
@@ -124,23 +131,46 @@
         owner: adminuser
         group: adminuser
         mode: '0755'
+    - name: Uploading Wazuh2Thehive script file
+      copy:
+        src: wazuh2thehive.sh
+        dest: /home/adminuser/wazuh2thehive.sh
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh2Thehive python file
+      copy:
+        src: custom-w2thive.py
+        dest: /home/adminuser/custom-w2thive.py
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh2Thehive shell file
+      copy:
+        src: custom-w2thive
+        dest: /home/adminuser/custom-w2thive
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
+    - name: Uploading Wazuh add-agent shell file
+      copy:
+        src: add-agent.sh
+        dest: /home/adminuser/add-agent.sh
+        owner: adminuser
+        group: adminuser
+        mode: '0755'
     - name: Uploading Wazuh config dir
       copy:
         src: ./compose/config/
         dest: /home/adminuser/compose/wazuh/config/
         directory_mode:
-    - name: Uploading Elastic env file
+    - name: Uploading Elastic Connector active script
       copy:
-        src: ./compose/misp.env
-        dest: /home/adminuser/compose/misp/.env
+        src: active-elastic-connector.sh
+        dest: /home/adminuser/active-elastic-connector.sh
         owner: adminuser
         group: adminuser
         mode: '0755'
-    - name: Deploy NPM compose
-      become: yes
-      docker_compose:
-        project_src: /home/adminuser/compose/npm
-        build: yes
     - name: Preparing environment for elastic deployment
       become: yes
       command:
@@ -153,6 +183,15 @@
       become: yes
       docker_compose:
         project_src: /home/adminuser/compose/elastic
+        build: yes
+    - name: Deploy Fleet Server configure script shell
+      become: yes
+      command:
+        cmd: /home/adminuser/configure-fleet.sh
+    - name: Deploy Fleet Server compose
+      become: yes
+      docker_compose:
+        project_src: /home/adminuser/compose/fleet-server
         build: yes
     - name: Deploy TheHive compose
       become: yes
@@ -174,6 +213,20 @@
       docker_compose:
         project_src: /home/adminuser/compose/wazuh
         build: yes
+    - name: Deploy Wazuh Agent on Azure VM
+      become: yes
+      command:
+        cmd: /home/adminuser/add-agent.sh
+    - name: Deploy Wazuh2Thehive integration
+      become: yes
+      command:
+        cmd: /home/adminuser/wazuh2thehive.sh
+    - name: Active Elastic Connector
+      become: yes
+      command:
+        cmd: /home/adminuser/active-elastic-connector.sh
+
+
 
 
 # - name: Configure SOC Architecture

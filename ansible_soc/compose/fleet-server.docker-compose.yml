@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  fleet-server:
+    image: docker.elastic.co/beats/elastic-agent:8.12.1
+    container_name: fleet-server
+    restart: always
+    user: root
+    environment:
+      - FLEET_SERVER_ENABLE=true
+      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE3MDg0NzI1MDA3ODk6ZGtlak1oSDZROVNJWFZnNlg3LTdMQQ
+      - FLEET_URL=https://audioprothese.francecentral.cloudapp.azure.com:8220
+      - FLEET_SERVER_ELASTICSEARCH_CA=/certs/ca/ca.crt
+      - FLEET_SERVER_ELASTICSEARCH_HOST=https://audioprothese.francecentral.cloudapp.azure.com:9200
+      - FLEET_SERVER_ELASTICSEARCH_USERNAME=elastic
+      - FLEET_SERVER_ELASTICSEARCH_PASSWORD=Ms9Bs3XGFWFsqf4QXbhe
+      - FLEET_INSECURE=true
+    volumes:
+      - /var/lib/docker/volumes/soc-ap_certs/_data:/certs
+    ports:
+      - 8220:8220
+    networks:
+      - soc
+
+networks:
+  soc:
+    name: elastic
+    external: true

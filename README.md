@@ -107,7 +107,7 @@ A la racine du dépôt :
 Rendez-vous au fichier inventory.ini pour remplacer <public-ip> par l'ip de votre nouvelle instance provisionné précedemment.
 Une fois le fichier modifié et sauvegardé, tapez la commande : 
 
-**ansible-playbook -i ./ansible_soc/inventory.ini ./ansible_soc/playbook.yaml**
+**echo "yes" | sudo ansible-playbook -i ./ansible_soc/inventory.ini ./ansible_soc/playbook.yaml**
 
 ##### Création des utilisateurs Cortex et n8n
 
@@ -117,7 +117,12 @@ Il faut accéder à [n8n](http://audioprothese.francecentral.cloudapp.azure.com:
 
 ##### Importation des automatisations pour le SOAR
 
-##### 
+##### Wazuh2Thehive
+
+Suivre la doc ......
+Se connecter à la VM azure
+Aller dans le répertoire de travail de l'utilisateur adminuser "cd /home/adminuser/"
+Lancer le script "sudo ./wazuh2thehive.sh"
 
 ### POC d'utilisation du SOC
 
@@ -135,7 +140,7 @@ connexion à Kibana :
     - Se connecter grâce au nom d'utilisateur "elastic" et au mot de passe "Ms9Bs3XGFWFsqf4QXbhe".
 
 connexion à TheHive : 
-    - Direction [audioprothese.francecentral.cloudapp.azure.com:9000](http://audioprothese.francecentral.cloudapp.azure.com:9001) ou <public-ip>:9000
+    - Direction [audioprothese.francecentral.cloudapp.azure.com:9000](http://audioprothese.francecentral.cloudapp.azure.com:9000) ou <public-ip>:9000
     - Se connecter grâce au nom d'utilisateur "admin@thehive.local" et au mot de passe "secret".
 Vérifier que TheHive est connecté à Cortex : 
     - Logo Cortex en bas à gauche sur l'interface de TheHive a un contour vert
@@ -155,7 +160,7 @@ connexion à n8n :
     - Se connecter grâce aux identifiants de l'utilisateur racine que vous avez crée
 
 connexion à Wazuh : 
-    - Direction [audioprothese.francecentral.cloudapp.azure.com:45601](http://audioprothese.francecentral.cloudapp.azure.com:45601) ou <public-ip>:45601
+    - Direction [audioprothese.francecentral.cloudapp.azure.com:5602](http://audioprothese.francecentral.cloudapp.azure.com:5602) ou <public-ip>:5602
     - Se connecter grâce au nom d'utilisateur "kibanaserver" et au mot de passe "qdLkwUMd4dkLRMRTgZg4".
 
 Pensez bien à modifier les mots de passes par défaut de chaque service !!!
