@@ -125,7 +125,7 @@ PS: si vous voulez détruire l'architecture SOC, la commande a effectuer est "te
 
 A la racine du dépôt : 
 
-Rendez-vous au fichier inventory.ini pour remplacer <public-ip> par l'ip de votre nouvelle instance provisionné précedemment.
+Rendez-vous au fichier inventory.ini pour remplacer \<public-ip\> par l'ip de votre nouvelle instance provisionné précedemment.
 Une fois le fichier modifié et sauvegardé, tapez la commande : 
 
 ```
