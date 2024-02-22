@@ -165,7 +165,6 @@ Il faut accéder à [n8n](http://audioprothese.francecentral.cloudapp.azure.com:
 ![Texte alternatif](./screenshot/soc5.png)
 ![Texte alternatif](./screenshot/soc6.png)
 ![Texte alternatif](./screenshot/soc7.png)
-![Texte alternatif](./screenshot/soc8.png)
 ![Texte alternatif](./screenshot/soc9.png)
 ![Texte alternatif](./screenshot/soc10.png)
 ![Texte alternatif](./screenshot/soc11.png)
