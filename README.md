@@ -145,6 +145,23 @@ Il faut accéder à [n8n](http://audioprothese.francecentral.cloudapp.azure.com:
 
 ### Fleet Server et Elastic Agent + Integration Docker
 
+![Texte alternatif](./screenshot/soc1.png)
+![Texte alternatif](./screenshot/soc2.png)
+![Texte alternatif](./screenshot/soc3.png)
+![Texte alternatif](./screenshot/soc4.png)
+![Texte alternatif](./screenshot/soc5.png)
+![Texte alternatif](./screenshot/soc6.png)
+![Texte alternatif](./screenshot/soc7.png)
+![Texte alternatif](./screenshot/soc8.png)
+![Texte alternatif](./screenshot/soc9.png)
+![Texte alternatif](./screenshot/soc10.png)
+![Texte alternatif](./screenshot/soc11.png)
+![Texte alternatif](./screenshot/soc12.png)
+![Texte alternatif](./screenshot/soc13.png)
+![Texte alternatif](./screenshot/soc14.png)
+![Texte alternatif](./screenshot/soc15.png)
+![Texte alternatif](./screenshot/soc16.png)
+
 ### Elastic Rules
 
 ### Cortex Responders
