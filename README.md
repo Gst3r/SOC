@@ -141,7 +141,20 @@ Il faut accéder à [n8n](http://audioprothese.francecentral.cloudapp.azure.com:
 
 ### Wazuh2TheHive
 
+![Texte alternatif](./screenshot/wazuh2thehive1.png)
+![Texte alternatif](./screenshot/wazuh2thehive2.png)
+![Texte alternatif](./screenshot/wazuh2thehive3.png)
+![Texte alternatif](./screenshot/wazuh2thehive4.png)
+![Texte alternatif](./screenshot/wazuh2thehive5.png)
+![Texte alternatif](./screenshot/wazuh2thehive6.png)
+![Texte alternatif](./screenshot/wazuh2thehive7.png)
+
+
 ### Elastic2TheHive
+
+![Texte alternatif](./screenshot/elastic2thehive1.png)
+![Texte alternatif](./screenshot/elastic2thehive2.png)
+![Texte alternatif](./screenshot/elastic2thehive3.png)
 
 ### Fleet Server et Elastic Agent + Integration Docker
 
@@ -164,7 +177,18 @@ Il faut accéder à [n8n](http://audioprothese.francecentral.cloudapp.azure.com:
 
 ### Elastic Rules
 
+### Cortex2TheHive
+
+![Texte alternatif](./screenshot/cortex2thehive0.png)
+![Texte alternatif](./screenshot/cortex2thehive0bis.png)
+![Texte alternatif](./screenshot/cortex2thehive1.png)
+![Texte alternatif](./screenshot/cortex2thehive2.png)
+
 ### Cortex Responders
+
+![Texte alternatif](./screenshot/analyzer1.png)
+![Texte alternatif](./screenshot/analyzer2.png)
+![Texte alternatif](./screenshot/analyzer3.png)
 
 ## POC d'utilisation du SOC
 
@@ -210,40 +234,40 @@ Pensez bien à modifier les mots de passes par défaut de chaque service !!!
 
 **Le POC d'exploitation est un guide de test qui permettra une fois les premières actions d'exploitations menés d'instaurer une routine de vérification du bon fonctionnement du SOC.**
 
-check des Dashboards :
-    - Kibana -> Analytics -> Dashboards
+check des Dashboards :  
+    - Kibana -> Analytics -> Dashboards  
 
-check de la section Management de Kibana :
-    - check nomenclature
-    - check des index de la base de donnée Elastic
-    - check des datastream Elastic
-    - check des component template et custom template
-    - check des users, roles et permissions (SAML)
-    - check des Ingest pipelines et des Logstash pipelines
-check de la section Monitoring de Kibana : 
-    - check du bon état des ressources de chaque noeud Elastic
-    - check des logs d'erreurs
-check du Discover pour la réception des logs
-    - Listage des dataview
-    - check de la reception
-    - check de la pertinence des logs
-check du Fleet Server :
-    - Les agents sont up et en contact avec fleet server
-    - Les agents remontent bie la donnée (check des indexs)
-    - Les stratégies, intégrations et agents sont cohérents entre eux
+check de la section Management de Kibana :  
+    - check nomenclature  
+    - check des index de la base de donnée Elastic  
+    - check des datastream Elastic  
+    - check des component template et custom template  
+    - check des users, roles et permissions (SAML)  
+    - check des Ingest pipelines et des Logstash pipelines  
+check de la section Monitoring de Kibana :   
+    - check du bon état des ressources de chaque noeud Elastic  
+    - check des logs d'erreurs  
+check du Discover pour la réception des logs  
+    - Listage des dataview  
+    - check de la reception  
+    - check de la pertinence des logs  
+check du Fleet Server :  
+    - Les agents sont up et en contact avec fleet server  
+    - Les agents remontent bie la donnée (check des indexs)  
+    - Les stratégies, intégrations et agents sont cohérents entre eux  
 
-check du SOAR :
-    - check des workflows patterns
-    - check des users, roles et permissions
-    - check des running workflows
+check du SOAR :  
+    - check des workflows patterns  
+    - check des users, roles et permissions  
+    - check des running workflows   
 
-check de TheHive : 
-    - users, roles et permissions (organisations)
-    - check des responders/analyzes cortex
-    - check des alertes / cases systems
-check de Cortex : 
-    - check des responders
-    - check des analyzers
-    - check de l'organisation, users et roles
+check de TheHive :   
+    - users, roles et permissions (organisations)  
+    - check des responders/analyzes cortex  
+    - check des alertes / cases systems  
+check de Cortex :    
+    - check des responders  
+    - check des analyzers  
+    - check de l'organisation, users et roles  
     
 Ce tuto est terminé ! Bonne exploitation !
